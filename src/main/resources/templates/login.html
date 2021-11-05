@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h2>Iniciar Sesion</h2>
+        <div>
+            <form th:action="@{/login}" method="post" style="max-width: 600px; margin: 0 auto;">
+                <div class="m-3">
+
+                    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                        Usuario o contraseña incorrectos
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="email" class="col-form-label col-4">E-mail</label>
+                        <div class="col-6">
+                            <input type="email" id="email-user" name="email" class="form-control"
+                                placeholder="Escriba su email" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="password" class="col-form-label col-4">Contraseña</label>
+                        <div class="col-6">
+                            <input type="password" id="password-user" name="password"
+                                class="form-control" placeholder="Escriba su contraseña" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </div>
+
+                    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                        Has cerrado sesion exitosamente
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

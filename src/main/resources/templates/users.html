@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <title>Usuarios</title>
+</head>
+<body>
+    <div class="container text-center">
+        <div>
+            <form th:action="@{/logout}" method="post">
+                <p>
+                    Bienvenido <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+                </p>
+                <input type="submit" value="Cerrar sesion">
+            </form>
+        </div>
+        <h2>Usuarios registrados en el sistema:</h2>
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>E-mail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.id}">ID</td>
+                        <td th:text="${user.firstName}">NOMBRE</td>
+                        <td th:text="${user.lastName}">APELLIDOS</td>
+                        <td th:text="${user.email}">EMAIL</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
