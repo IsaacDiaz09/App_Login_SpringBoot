@@ -1,5 +1,7 @@
 package com.isaac.login_app.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,111 +12,58 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User implements Serializable {
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 8024144104746499197L;
 
-    @Column(unique = true)
-    @NotBlank(message = "El email es requerido")
-    @Email(message="el email prorcionado es invalido")
-    private String email;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(length = 64)
-    @NotBlank(message = "La contraseña es requerida")
-    @Size(message="La contraseña debe tener al menos 8 caracteres y maximo 12")
-    //@VerifyEmailInUse(message="El email proporcionado ya esta en uso")
-    private String password;
+	@Column(unique = true)
+	@NotBlank(message = "· El email es requerido")
+	@Email(message = "· El email prorcionado es invalido")
+	private String email;
 
-    @NotBlank(message = "El nombre es requerido")
-    private String firstName;
+	@Column(length = 64)
+	@NotBlank(message = "· La contraseña es requerida")
+	@Size(min = 7, message = "· La contraseña debe tener al menos 8 caracteres")
+	private String password;
 
-    @NotBlank(message = "Los apellidos son requeridos")
-    private String lastName;
+	@Column(length = 64)
+	@NotBlank(message = "· Debe confirmar su contraseña")
+	@Size(min = 7, message = "· La contraseña debe tener al menos 8 caracteres")
+	private String confirmPassword;
 
-    // --- Constructores ---
+	@NotBlank(message = "· El nombre es requerido")
+	private String firstName;
 
-    public User() {
-    }
+	@NotBlank(message = "· Los apellidos son requeridos")
+	private String lastName;
 
-    /**
-     * @param email
-     * @param password
-     * @param firstName
-     * @param lastName
-     */
-    public User(@Email String email, String password, String firstName, String lastName) {
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    // --- Getters y Setters ---
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * @param firstName the firstName to set
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	// --- Constructor ---
+	/**
+	 * @param email
+	 * @param password
+	 * @param confirmPassword
+	 * @param firstName
+	 * @param lastName
+	 */
+	public User(String email, String password, String confirmPassword, String firstName, String lastName) {
+		this.email = email;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
 }

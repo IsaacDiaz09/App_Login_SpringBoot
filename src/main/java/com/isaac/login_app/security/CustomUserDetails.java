@@ -8,7 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
-    private User user;
+    /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1056271089079272597L;
+	private User user;
     
     /**
      * @param user

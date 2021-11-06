@@ -2,67 +2,82 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <title>Registrarse</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<title>Registrarse</title>
 </head>
 
 <body>
-    <div class="container text-center">
-        <div>
-            <h2>Formulario de registro</h2>
-        </div>
+	<div class="container text-center">
+		<div>
+			<h2>Formulario de registro</h2>
+		</div>
 
-        <form th:object="${user}" th:action="@{/register/save}" method="post" 
-            style="max-width: 600px; margin: 0 auto;">
-            <div class="m-3">
+		<form th:object="${user}" th:action="@{/register}" method="post" style="max-width: 900px; margin: 0 auto;">
+			<div class="m-3">
 
-                <!-- Log de erorres de validacion-->
-                <div th:object="${user}" class="errorblock">
-                    <ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
-                        <li th:each="error: ${#fields.errors('*')}" th:text="${error}" style="margin-left: 20px"></li>
-                    </ul>
-                </div>
+				<div class="form-group row">
+					<label for="email" class="col-form-label col-4">Nombre</label>
+					<div class="col-6">
+						<input th:field="*{firstName}" type="text" id="name-user" class="form-control"
+							placeholder="Escriba su nombre" />
+						<div class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+							Error</div>
+					</div>
+				</div>
 
-                <div class="form-group row">
-                    <label for="email" class="col-form-label col-4">Nombre</label>
-                    <div class="col-6">
-                        <input th:field="*{firstName}" type="text" id="name-user" class="form-control"
-                            placeholder="Escriba su nombre" />
-                    </div>
-                </div>
+				<div class="form-group row">
+					<label for="last-name" class="col-form-label col-4">Apellidos</label>
+					<div class="col-6">
+						<input th:field="*{lastName}" type="text" id="last-name-user" class="form-control"
+							placeholder="Escriba sus apellidos" />
+						<div class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+							Error</div>
+					</div>
+				</div>
 
-                <div class="form-group row">
-                    <label for="last-name" class="col-form-label col-4">Apellidos</label>
-                    <div class="col-6">
-                        <input th:field="*{lastName}" type="text" id="last-name-user" class="form-control"
-                            placeholder="Escriba sus apellidos" />
-                    </div>
-                </div>
+				<div class="form-group row">
+					<label for="email" class="col-form-label col-4">E-mail</label>
+					<div class="col-6">
+						<input th:field="*{email}" type="email" id="email-user" class="form-control"
+							placeholder="Escriba su email" />
+						<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+							Error</div>
+					</div>
+				</div>
 
-                <div class="form-group row">
-                    <label for="email" class="col-form-label col-4">E-mail</label>
-                    <div class="col-6">
-                        <input th:field="*{email}" type="email" id="email-user" class="form-control"
-                            placeholder="Escriba su email" />
-                    </div>
-                </div>
+				<div class="form-group row">
+					<label for="password" class="col-form-label col-4">Contraseña</label>
+					<div class="col-6">
+						<input th:field="*{password}" type="password" id="password-user" class="form-control"
+							placeholder="Escriba su contraseña" />
+						<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+							Error</div>
+					</div>
+				</div>
 
-                <div class="form-group row">
-                    <label for="password" class="col-form-label col-4">Contraseña</label>
-                    <div class="col-6">
-                        <input  th:field="*{password}" type="password" id="password-user" class="form-control"
-                            placeholder="Escriba su contraseña" />
-                    </div>
-                </div>
+				<div class="form-group row">
+					<label for="password" class="col-form-label col-4">Confirme su contraseña</label>
+					<div class="col-6">
+						<input th:field="*{confirmPassword}" type="password" id="confirmPassword-user"
+							class="form-control" placeholder="Repita su contraseña" />
+						<div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}"
+							th:errors="*{confirmPassword}">
+							Error</div>
+					</div>
+				</div>
 
-                <div>
-                    <button type="submit" class="btn btn-primary">Registrarme</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    </div>
+				<div>
+					<button type="submit" class="btn btn-primary">Registrarme</button>
+				</div>
+
+				<div class="alert alert-danger text-center m-3"
+					th:if="${validationError != null and !validationError.empty}">
+					<h6 th:text="${validationError}" style="font-weight: bold"></h6>
+				</div>
+		</form>
+	</div>
+	</div>
 </body>
 
 </html>

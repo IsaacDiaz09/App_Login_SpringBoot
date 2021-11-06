@@ -1,15 +1,15 @@
 package com.isaac.login_app.service;
 
-import java.util.Objects;
-
-import com.isaac.login_app.model.User;
-import com.isaac.login_app.repository.UserRepository;
-import com.isaac.login_app.security.CustomUserDetails;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.isaac.login_app.model.User;
+import com.isaac.login_app.repository.UserRepository;
+import com.isaac.login_app.security.CustomUserDetails;
 
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -18,12 +18,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(email);
-        if (Objects.isNull(user)){
+        Optional<User> user = userRepo.findByEmail(email);
+        if (user.isEmpty()){
             throw new UsernameNotFoundException("Usuario no encontrado, email = " + email);
         }
 
-        return new CustomUserDetails(user);
+        return new CustomUserDetails(user.get());
     }
     
 }
